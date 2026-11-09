@@ -45,6 +45,7 @@ from infra.tool_registry.java import find_java_21_or_later
 from infra.tool_registry.manifest import _recorded_tools
 from infra.tool_registry.registry import ConfigSection, PackageManagerToolSource
 from infra.logging_config import setup_logging
+from infra.proxy import normalize_socks_proxy_urls
 from infra.vscode_constants import VSCODE_CONFIG
 from infra.user_config import ensure_config_template
 
@@ -766,6 +767,7 @@ def run_install(
 
 def main() -> None:
     """Entry point for the `codeboarding-setup` CLI command."""
+    normalize_socks_proxy_urls()
     # Windows consoles default to cp1252 which can't encode emojis; force UTF-8.
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")

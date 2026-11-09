@@ -13,6 +13,7 @@ from langchain_ollama import ChatOllama
 from langchain_openai import ChatOpenAI
 
 from agents.constants import LLMDefaults, ModelCapabilities
+from agents.deepseek_chat import DeepSeekThinkingChat
 from agents.model_capabilities import ContextWindow, get_context_window
 from agents.prompts import PromptProfile, resolve_prompt_profile
 from infra.monitoring.callbacks import MONITORING_CALLBACK
@@ -225,16 +226,20 @@ LLM_PROVIDERS = {
         base_url_env="OLLAMA_BASE_URL",
     ),
     "deepseek": LLMConfig(
-        chat_class=ChatOpenAI,
+        chat_class=DeepSeekThinkingChat,
         selection_envs=["DEEPSEEK_API_KEY", "DEEPSEEK_BASE_URL"],
         api_key_env="DEEPSEEK_API_KEY",
-        agent_model="deepseek-v4-flash",
+        agent_model="deepseek-flash",
         base_url_env="DEEPSEEK_BASE_URL",
-        default_base_url="https://api.deepseek.com/v1",
+        default_base_url="https://api.deepseek.com",
         extra_args={
             "max_tokens": None,
             "timeout": LLMDefaults.REQUEST_TIMEOUT_SECONDS,
             "max_retries": 0,
+            "extra_body": {"thinking": {"type": "enabled"}},
+            "reasoning_effort": "high",
+            "use_responses_api": False,
+            "disable_streaming": True,
         },
     ),
     "glm": LLMConfig(

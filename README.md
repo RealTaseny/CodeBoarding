@@ -169,6 +169,7 @@ On first run, CodeBoarding creates `~/.codeboarding/config.toml`. Set one provid
 # vercel_api_key            = "vck_..."
 # aws_bearer_token_bedrock  = "..."
 # ollama_base_url           = "http://localhost:11434"
+# deepseek_api_key          = "sk-..."
 # openrouter_api_key        = "sk-..."
 # orcarouter_api_key        = "sk-orca-..."   # model routing gateway (https://www.orcarouter.ai)
 # requesty_api_key          = "rqsty-..."     # LLM gateway (https://www.requesty.ai)
@@ -185,6 +186,8 @@ On first run, CodeBoarding creates `~/.codeboarding/config.toml`. Set one provid
 `anthropic_base_url` points the Anthropic client at a compatible Messages API, including Azure Foundry Claude deployments. Set the deployment key as `anthropic_api_key` and use canonical Anthropic model IDs such as `claude-sonnet-5` for `agent_model` so CodeBoarding selects the correct model capabilities and prompts.
 
 Shell environment variables such as `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `GOOGLE_API_KEY`, and `OLLAMA_BASE_URL` take precedence over the config file. For private repositories, set `GITHUB_TOKEN` in your environment.
+
+The DeepSeek provider reads `deepseek_api_key` or `DEEPSEEK_API_KEY`. It defaults to `deepseek-flash` (DeepSeek-V4.1-Flash-1017) with high thinking effort. The CLI accepts SOCKS5 proxy URLs in `HTTP_PROXY`, `HTTPS_PROXY`, or `ALL_PROXY` and interprets `socks://` as `socks5h://` for the current process.
 
 Three environment variables tune the static analysis itself:
 
